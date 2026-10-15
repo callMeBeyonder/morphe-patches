@@ -6,7 +6,7 @@ Custom patches by beyonder for apps I like.
 
 ### How to use these patches
 
-Click here to add these patches to Morphe: https://morphe.software/add-source?github=5665arpit0087/morphe-patches
+Click here to add these patches to Morphe: https://morphe.software/add-source?github=callMeBeyonder/morphe-patches
 
 ## 🩹 Patches list
 

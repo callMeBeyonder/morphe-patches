@@ -4,7 +4,7 @@ patches {
     about {
         name = "Beyonder Morphe Patches"
         description = "Patches for apps I like"
-        source = "https://github.com/5665arpit0087/morphe-patches"
+        source = "https://github.com/callMeBeyonder/morphe-patches"
         author = "beyonder"
         contact = "na"
         website = "na"
