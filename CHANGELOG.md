@@ -1,4 +1,4 @@
-## [1.1.0-dev.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.0.0...v1.1.0-dev.1) (2026-10-15)
+## [1.1.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.0.0...v1.1.0) (2026-10-15)
 
 ### ✨ New Features
 
