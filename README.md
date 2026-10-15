@@ -4,6 +4,9 @@
 
 Custom patches by beyonder for apps I like.
 
+> [!IMPORTANT]
+> **StrongLifts "Unlock Pro" requires root.** The app is shielded by Google Play PairIP, so the patched build must be mounted over the genuine Play-signed install (e.g. `morphe-cli patch --mount`) — a normal sideload will not run.
+
 ### How to use these patches
 
 Click here to add these patches to Morphe: https://morphe.software/add-source?github=callMeBeyonder/morphe-patches
