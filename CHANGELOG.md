@@ -1,3 +1,9 @@
+## 1.0.0 (2026-10-15)
+
+### ✨ New Features
+
+* add StrongLifts Unlock Pro patch ([d0b8f26](https://github.com/callMeBeyonder/morphe-patches/commit/d0b8f26951c4804ce30eeadda76e970821c76db8))
+
 ## 1.0.0-dev.1 (2026-10-15)
 
 ### ✨ New Features

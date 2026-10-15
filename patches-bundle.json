@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-15T12:47:38",
-  "description": "## 1.0.0-dev.1 (2026-10-15)\n\n### ✨ New Features\n\n* add StrongLifts Unlock Pro patch ([d0b8f26](https://github.com/callMeBeyonder/morphe-patches/commit/d0b8f26951c4804ce30eeadda76e970821c76db8))",
-  "download_url": "https://github.com/callMeBeyonder/morphe-patches/releases/download/v1.0.0-dev.1/patches-1.0.0-dev.1.mpp",
+  "created_at": "2026-10-15T12:51:18",
+  "description": "## 1.0.0 (2026-10-15)\n\n### ✨ New Features\n\n* add StrongLifts Unlock Pro patch ([d0b8f26](https://github.com/callMeBeyonder/morphe-patches/commit/d0b8f26951c4804ce30eeadda76e970821c76db8))",
+  "download_url": "https://github.com/callMeBeyonder/morphe-patches/releases/download/v1.0.0/patches-1.0.0.mpp",
   "signature_download_url": "",
-  "version": "1.0.0-dev.1"
+  "version": "1.0.0"
 }
