@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "patches": [
     {
       "name": "Example Patch",
@@ -25,6 +25,32 @@
             },
             {
               "version": "1.0.2",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Unlock Premium (Root)",
+      "description": "Unlocks all premium features by injecting an active RevenueCat entitlement into the customer info. Requires root: this app is protected by Firebase App Check with Play Integrity, so the patched build must be mounted over the genuine Play-signed install (e.g. morphe-cli patch --mount) — a re-signed sideload will fail server-side attestation.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.sbs.train",
+          "name": "MacroFactor Workouts",
+          "description": null,
+          "apkFileType": "XAPK",
+          "appIconColor": "#000000",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.4.1",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,

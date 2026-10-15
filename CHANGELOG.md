@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.0.0...v1.1.0) (2026-10-15)
+
+### ✨ New Features
+
+* add MacroFactor Workouts premium unlock patch ([e3651f9](https://github.com/callMeBeyonder/morphe-patches/commit/e3651f9b91e2699f31a64b369350ce0e68c7f055))
+
 ## 1.0.0 (2026-10-15)
 
 ### ✨ New Features
