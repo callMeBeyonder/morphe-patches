@@ -19,6 +19,9 @@ val patchListGeneratorClasspath = configurations.create("patchListGeneratorClass
 dependencies {
     compileOnly(libs.gson)
     patchListGeneratorClasspath(libs.gson)
+
+    // Common patch utilities (extension hook, installer spoof, signature spoof, ...).
+    implementation(libs.morphe.patches.library)
 }
 
 tasks {
