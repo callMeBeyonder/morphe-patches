@@ -9,7 +9,7 @@ import app.morphe.patcher.patch.bytecodePatch
  * =============================================================================
  *
  * StrongLifts 4.4.1 ships with Google Play PairIP protection. The public
- * "Unlock Pro" patch intentionally does NOT depend on anything in this file.
+ * "Unlock Pro (Root)" patch intentionally does NOT depend on anything in this file.
  *
  * (a) Sideload is structurally non-viable for this app.
  *     PairIP relocates string literals into static fields of ~217 obfuscated "holder"

@@ -3,10 +3,11 @@ package arpit.morphe.patches.stronglifts.premium
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import arpit.morphe.patches.stronglifts.shared.Constants.COMPATIBILITY_STRONGLIFTS
+import arpit.morphe.util.requireRootMount
 
 @Suppress("unused")
 val strongLiftsUnlockProPatch = bytecodePatch(
-    name = "Unlock Pro",
+    name = "Unlock Pro (Root)",
     description = "Unlocks all Pro and PowerPack premium features by forcing the " +
         "entitlement gates to return true. Requires root: this app is shielded by " +
         "Google Play PairIP, so the patched build must be mounted over the genuine " +
@@ -15,6 +16,9 @@ val strongLiftsUnlockProPatch = bytecodePatch(
     default = true
 ) {
     compatibleWith(COMPATIBILITY_STRONGLIFTS)
+
+    // Mirrors MacroFactor: only offered for root + MOUNT installs.
+    availability(requireRootMount)
 
     // Deliberately no PairIP dependency. This patch targets root + mount deployments,
     // where the genuine Play-signed APK stays installed underneath and the PairIP VM runs
