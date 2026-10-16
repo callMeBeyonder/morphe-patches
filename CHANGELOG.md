@@ -1,3 +1,9 @@
+## [1.2.2-dev.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.1...v1.2.2-dev.1) (2026-10-16)
+
+### 🐛 Bug Fixes
+
+* simplify patch descriptions ([fc6c12e](https://github.com/callMeBeyonder/morphe-patches/commit/fc6c12e5bd3192427eb12e7e7947b8e692df6a42))
+
 ## [1.2.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.0...v1.2.1) (2026-10-16)
 
 ### 🐛 Bug Fixes
