@@ -1,3 +1,13 @@
+## [1.2.0-dev.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.1.0...v1.2.0-dev.1) (2026-10-16)
+
+### 🐛 Bug Fixes
+
+* mark StrongLifts patch as root-only ([84a03b7](https://github.com/callMeBeyonder/morphe-patches/commit/84a03b76db0d9eb8710716186acb57be5d99e767))
+
+### ✨ New Features
+
+* add CRICFy TV 7.3 remove ads patch ([e2aacbd](https://github.com/callMeBeyonder/morphe-patches/commit/e2aacbd936cab1f98ec21c04757e29b35cf8c55c))
+
 ## [1.1.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.0.0...v1.1.0) (2026-10-15)
 
 ### ✨ New Features

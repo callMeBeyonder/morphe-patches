@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-15T16:43:36",
-  "description": "## [1.1.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.0.0...v1.1.0) (2026-10-15)\n\n### ✨ New Features\n\n* add MacroFactor Workouts premium unlock patch ([e3651f9](https://github.com/callMeBeyonder/morphe-patches/commit/e3651f9b91e2699f31a64b369350ce0e68c7f055))",
-  "download_url": "https://github.com/callMeBeyonder/morphe-patches/releases/download/v1.1.0/patches-1.1.0.mpp",
+  "created_at": "2026-10-16T07:41:22",
+  "description": "## [1.2.0-dev.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.1.0...v1.2.0-dev.1) (2026-10-16)\n\n### 🐛 Bug Fixes\n\n* mark StrongLifts patch as root-only ([84a03b7](https://github.com/callMeBeyonder/morphe-patches/commit/84a03b76db0d9eb8710716186acb57be5d99e767))\n\n### ✨ New Features\n\n* add CRICFy TV 7.3 remove ads patch ([e2aacbd](https://github.com/callMeBeyonder/morphe-patches/commit/e2aacbd936cab1f98ec21c04757e29b35cf8c55c))",
+  "download_url": "https://github.com/callMeBeyonder/morphe-patches/releases/download/v1.2.0-dev.1/patches-1.2.0-dev.1.mpp",
   "signature_download_url": "",
-  "version": "1.1.0"
+  "version": "1.2.0-dev.1"
 }
