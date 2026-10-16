@@ -5,7 +5,7 @@
 Custom patches by beyonder for apps I like.
 
 > [!IMPORTANT]
-> **StrongLifts requires root.** The app is shielded by Google Play PairIP, so the patched build must be mounted over the genuine Play-signed install (e.g. `morphe-cli patch --mount`) — a normal sideload will not run.
+> **StrongLifts requires root.** The app is shielded by Google Play PairIP, so the patched build must be mounted over the genuine Play-signed install — a normal sideload will not run.
 
 ### How to use these patches
 
@@ -14,7 +14,7 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.2.1](https://github.com/callMeBeyonder/morphe-patches/releases/tag/v1.2.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
+> **[v1.2.2-dev.1](https://github.com/callMeBeyonder/morphe-patches/releases/tag/v1.2.2-dev.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
 <details open>
 <summary>📦 CRICFy TV&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
 <br>
@@ -26,7 +26,7 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
-| [Remove ads](#remove-ads) | Removes the Unity full-screen ad, the sponsor banner, the sponsor redirects shown when opening a channel and the self-hosted full-screen ad shown on app open. The locked channel dialog is kept. |  |
+| [Remove ads](#remove-ads) | Removes the sponsor ads (banner and gate screens) and the full-screen ads. The locked channel dialog is kept. |  |
 
 </details>
 
@@ -41,7 +41,7 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
-| [Unlock Premium (Root)](#unlock-premium-root) | Unlocks all premium features by injecting an active RevenueCat entitlement into the customer info. Requires root: this app is protected by Firebase App Check with Play Integrity, so the patched build must be mounted over the genuine Play-signed install (e.g. morphe-cli patch --mount) — a re-signed sideload will fail server-side attestation. |  |
+| [Unlock Premium (Root)](#unlock-premium-root) | Unlocks all premium features. Requires root: the patched build must be mounted over the genuine Play-signed install — a re-signed sideload will not work. |  |
 
 </details>
 
@@ -56,7 +56,7 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
-| [Unlock Pro (Root)](#unlock-pro-root) | Unlocks all Pro and PowerPack premium features by forcing the entitlement gates to return true. Requires root: this app is shielded by Google Play PairIP, so the patched build must be mounted over the genuine Play-signed install (e.g. morphe-cli patch --mount) — a normal sideload will not run. |  |
+| [Unlock Pro (Root)](#unlock-pro-root) | Unlocks all Pro and PowerPack features. Requires root: the patched build must be mounted over the genuine Play-signed install — a normal sideload will not run. |  |
 
 </details>
 

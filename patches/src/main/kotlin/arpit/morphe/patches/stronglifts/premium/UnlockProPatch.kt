@@ -8,11 +8,9 @@ import arpit.morphe.util.requireRootMount
 @Suppress("unused")
 val strongLiftsUnlockProPatch = bytecodePatch(
     name = "Unlock Pro (Root)",
-    description = "Unlocks all Pro and PowerPack premium features by forcing the " +
-        "entitlement gates to return true. Requires root: this app is shielded by " +
-        "Google Play PairIP, so the patched build must be mounted over the genuine " +
-        "Play-signed install (e.g. morphe-cli patch --mount) — a normal sideload " +
-        "will not run.",
+    description = "Unlocks all Pro and PowerPack features. Requires root: the patched " +
+        "build must be mounted over the genuine Play-signed install — a normal " +
+        "sideload will not run.",
     default = true
 ) {
     compatibleWith(COMPATIBILITY_STRONGLIFTS)

@@ -1,10 +1,10 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.2.1",
+  "version": "1.2.2-dev.1",
   "patches": [
     {
       "name": "Remove ads",
-      "description": "Removes the Unity full-screen ad, the sponsor banner, the sponsor redirects shown when opening a channel and the self-hosted full-screen ad shown on app open. The locked channel dialog is kept.",
+      "description": "Removes the sponsor ads (banner and gate screens) and the full-screen ads. The locked channel dialog is kept.",
       "default": true,
       "category": null,
       "compatiblePackages": [
@@ -30,7 +30,7 @@
     },
     {
       "name": "Unlock Premium (Root)",
-      "description": "Unlocks all premium features by injecting an active RevenueCat entitlement into the customer info. Requires root: this app is protected by Firebase App Check with Play Integrity, so the patched build must be mounted over the genuine Play-signed install (e.g. morphe-cli patch --mount) — a re-signed sideload will fail server-side attestation.",
+      "description": "Unlocks all premium features. Requires root: the patched build must be mounted over the genuine Play-signed install — a re-signed sideload will not work.",
       "default": true,
       "category": null,
       "compatiblePackages": [
@@ -56,7 +56,7 @@
     },
     {
       "name": "Unlock Pro (Root)",
-      "description": "Unlocks all Pro and PowerPack premium features by forcing the entitlement gates to return true. Requires root: this app is shielded by Google Play PairIP, so the patched build must be mounted over the genuine Play-signed install (e.g. morphe-cli patch --mount) — a normal sideload will not run.",
+      "description": "Unlocks all Pro and PowerPack features. Requires root: the patched build must be mounted over the genuine Play-signed install — a normal sideload will not run.",
       "default": true,
       "category": null,
       "compatiblePackages": [
