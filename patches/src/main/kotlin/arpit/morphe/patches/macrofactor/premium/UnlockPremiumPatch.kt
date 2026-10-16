@@ -21,11 +21,9 @@ private val extensionPatch = sharedExtensionPatch(
 @Suppress("unused")
 val unlockPremiumPatch = bytecodePatch(
     name = "Unlock Premium (Root)",
-    description = "Unlocks all premium features by injecting an active RevenueCat " +
-        "entitlement into the customer info. Requires root: this app is protected by " +
-        "Firebase App Check with Play Integrity, so the patched build must be mounted " +
-        "over the genuine Play-signed install (e.g. morphe-cli patch --mount) — a " +
-        "re-signed sideload will fail server-side attestation.",
+    description = "Unlocks all premium features. Requires root: the patched build must " +
+        "be mounted over the genuine Play-signed install — a re-signed sideload " +
+        "will not work.",
     default = true
 ) {
     compatibleWith(COMPATIBILITY_MACROFACTOR_WORKOUTS)

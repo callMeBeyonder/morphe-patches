@@ -26,9 +26,8 @@ import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction30t
 @Suppress("unused")
 val removeAdsPatch = bytecodePatch(
     name = "Remove ads",
-    description = "Removes the Unity full-screen ad, the sponsor banner, the sponsor " +
-        "redirects shown when opening a channel and the self-hosted full-screen ad shown " +
-        "on app open. The locked channel dialog is kept.",
+    description = "Removes the sponsor ads (banner and gate screens) and the full-screen " +
+        "ads. The locked channel dialog is kept.",
     default = true,
 ) {
     compatibleWith(COMPATIBILITY_CRICFY_TV)

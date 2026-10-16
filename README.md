@@ -5,7 +5,7 @@
 Custom patches by beyonder for apps I like.
 
 > [!IMPORTANT]
-> **StrongLifts requires root.** The app is shielded by Google Play PairIP, so the patched build must be mounted over the genuine Play-signed install (e.g. `morphe-cli patch --mount`) — a normal sideload will not run.
+> **StrongLifts requires root.** The app is shielded by Google Play PairIP, so the patched build must be mounted over the genuine Play-signed install — a normal sideload will not run.
 
 ### How to use these patches
 
