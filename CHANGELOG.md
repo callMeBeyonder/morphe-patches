@@ -1,3 +1,9 @@
+## [1.2.1-dev.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.0...v1.2.1-dev.1) (2026-10-16)
+
+### 🐛 Bug Fixes
+
+* remove template example patch ([21614ab](https://github.com/callMeBeyonder/morphe-patches/commit/21614ab209900c941fe17fe79162cffadf82a9b8))
+
 ## [1.2.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.1.0...v1.2.0) (2026-10-16)
 
 ### 🐛 Bug Fixes
