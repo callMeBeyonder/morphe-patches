@@ -1,3 +1,9 @@
+## [1.2.3](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.2...v1.2.3) (2026-10-24)
+
+### 🐛 Bug Fixes
+
+* repair CRICFy 7.3 dead-code array payloads on stock APKs ([0013e62](https://github.com/callMeBeyonder/morphe-patches/commit/0013e621f61aac7a799727a53eb348e63014576a))
+
 ## [1.2.2](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.1...v1.2.2) (2026-10-16)
 
 ### 🐛 Bug Fixes
