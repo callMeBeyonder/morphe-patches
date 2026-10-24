@@ -1,4 +1,4 @@
-## [1.2.3-dev.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.2...v1.2.3-dev.1) (2026-10-24)
+## [1.2.3](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.2...v1.2.3) (2026-10-24)
 
 ### 🐛 Bug Fixes
 
