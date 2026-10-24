@@ -7,6 +7,7 @@ import app.morphe.patcher.extensions.newLabel
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.util.indexOfFirstInstructionReversedOrThrow
 import arpit.morphe.patches.cricfy.shared.Constants.COMPATIBILITY_CRICFY_TV
+import arpit.morphe.patches.cricfy.shared.antiTamperPatch
 import arpit.morphe.patches.cricfy.shared.repairInvalidArrayPayloads
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.builder.BuilderOffsetInstruction
@@ -32,6 +33,11 @@ val removeAdsPatch = bytecodePatch(
     default = true,
 ) {
     compatibleWith(COMPATIBILITY_CRICFY_TV)
+
+    // Repackaging changes the APK signature, which the native config decryptor
+    // treats as tampering and answers with the still-encrypted blob. The app would
+    // then fail to parse its startup configuration.
+    dependsOn(antiTamperPatch)
 
     execute {
         //
