@@ -1,3 +1,9 @@
+## [1.2.4](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.3...v1.2.4) (2026-10-24)
+
+### 🐛 Bug Fixes
+
+* **cricfy:** bypass native anti-tamper gate on re-signed builds ([7adcd58](https://github.com/callMeBeyonder/morphe-patches/commit/7adcd58bac0c776bed187895a876e4d999dc7930))
+
 ## [1.2.4-dev.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.3...v1.2.4-dev.1) (2026-10-24)
 
 ### 🐛 Bug Fixes
