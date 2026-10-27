@@ -1,3 +1,9 @@
+## [1.3.0-dev.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.4...v1.3.0-dev.1) (2026-10-27)
+
+### ✨ New Features
+
+* **istreamflare:** add premium unlock and integrity bypass patches ([6553d87](https://github.com/callMeBeyonder/morphe-patches/commit/6553d87400a9996e6985d192745fcb071e7d2841))
+
 ## [1.2.4](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.3...v1.2.4) (2026-10-24)
 
 ### 🐛 Bug Fixes
