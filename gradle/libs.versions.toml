@@ -5,7 +5,7 @@ morphe-patcher = "1.15.1"
 arsc-lib = "9b742c412d"
 #noinspection GradleDependency
 smali = "d92701d947"
-gson = "2.14.0"
+gson = "2.15.0"
 morphe-patches-library = "1.8.0"
 
 [libraries]
