@@ -1,3 +1,11 @@
+## [1.3.0-dev.2](https://github.com/callMeBeyonder/morphe-patches/compare/v1.3.0-dev.1...v1.3.0-dev.2) (2026-11-01)
+
+### ✨ New Features
+
+* **cricfy:** drop unnecessary manifest permissions ([cb1dc2c](https://github.com/callMeBeyonder/morphe-patches/commit/cb1dc2cac8983a9ed5b3afd679023acdbc9fd823))
+* **cricfy:** remove CashRaven bandwidth sharing ([fe81bd1](https://github.com/callMeBeyonder/morphe-patches/commit/fe81bd14bc259e2949fc3a4051a31fce5e8dfe40))
+* **cricfy:** support CRICFy TV 7.4 ([507981d](https://github.com/callMeBeyonder/morphe-patches/commit/507981ddb0787c28a53e766a5652e7de0d459c4d))
+
 ## [1.3.0-dev.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.2.4...v1.3.0-dev.1) (2026-10-27)
 
 ### ✨ New Features
