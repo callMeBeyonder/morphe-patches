@@ -14,7 +14,7 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.3.0](https://github.com/callMeBeyonder/morphe-patches/releases/tag/v1.3.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;6 patches total
+> **[v1.4.0-dev.1](https://github.com/callMeBeyonder/morphe-patches/releases/tag/v1.4.0-dev.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;8 patches total
 <details open>
 <summary>📦 CRICFy TV&nbsp;&nbsp;•&nbsp;&nbsp;4 patches</summary>
 <br>
@@ -30,6 +30,22 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 | [Remove ads](#remove-ads) | Removes the sponsor ads (banner and gate screens) and the full-screen ads. The locked channel dialog is kept. |  |
 | [Remove bandwidth sharing (CashRaven)](#remove-bandwidth-sharing-cashraven) | Disables the CashRaven P2P bandwidth-sharing SDK: no opt-in, no background sharing service, no restart on boot, and the sharing menu entry is hidden. |  |
 | [Remove unnecessary permissions](#remove-unnecessary-permissions) | Removes the boot-persistence, advertising-ID, install-referrer and package-query permissions the patched build no longer needs. |  |
+
+</details>
+
+<details open>
+<summary>📦 iStreamFlare&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 25.0.0 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Bypass integrity checks](#bypass-integrity-checks) | Disables the installer/signature validation that exits the app on re-signed builds when the operator enables it, and the restricted-app block that refuses to run while network-analysis tools are installed. |  |
+| [Unlock Premium](#unlock-premium) | Unlocks premium content playback and downloads, removes the buy-premium paywalls, disables all ad placements, and hides the expired-subscription nag. Server-side restrictions such as account device binding remain. |  |
 
 </details>
 
