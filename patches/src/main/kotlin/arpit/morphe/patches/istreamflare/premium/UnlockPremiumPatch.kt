@@ -22,8 +22,8 @@ import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
  * and the app-open ads of the AdMob/Wortise managers).
  *
  * The expired-subscription nag (`SubscriptionExpiredDialog`) that the server
- * triggers with the account status "nosub" is silenced by retargeting its two
- * comparison strings.
+ * triggers with the account status "nosub" is silenced by forcing its
+ * comparison result to false.
  *
  * Server-side limits are unaffected: account/device binding, the maintenance
  * and blocked-country screens, and content the backend refuses to deliver.
@@ -46,9 +46,9 @@ val unlockPremiumPatch = bytecodePatch(
         // Inserting `const-string <reg>, "123"` right after the
         // `move-result-object` of `getString("subscription_type", null)`
         // overwrites the register that `String.valueOf` wraps. The digit loop
-        // then sets removeAds ('1'), playPremium ('2') and downloadPremium
-        // ('3') to true through the app's own logic, for any stored value —
-        // including guests, whose preference was never written at all.
+        // then sets removeAds ('1'), playPremium ('2') and downloadPremium ('3')
+        // to true through the app's own logic, for any stored value — including
+        // guests, whose preference was never written at all.
         //
 
         // The six named activity/fragment parsers. A count other than six means
@@ -74,20 +74,20 @@ val unlockPremiumPatch = bytecodePatch(
         //
         // Target 2 — silence the expired-subscription nag.
         //
-        // `MovieDetails.onCreate` and `WebSeriesDetails.onCreate` compare the
-        // stored account status against "nosub" and show a non-dismissible
-        // dialog when it matches. Rewriting the comparison constant (same
-        // register, same instruction slot) makes the comparison always false,
-        // which is exactly the path a subscribed account takes. Exactly two
-        // matches are expected.
+        // `MovieDetails.onCreate` and `WebSeriesDetails.onCreate` compute
+        // `"nosub".equals(subscriptionStatus)` and show a non-dismissible dialog
+        // when it is true. Replacing the `move-result` that feeds the following
+        // `if-eqz` with `const/4 <reg>, 0x0` takes the "not expired" branch for
+        // every status the backend can send. The `"nosub"` literal is left in
+        // place, so this does not depend on the server's status vocabulary.
         //
         SubscriptionExpiredNagFingerprint.matchAll(2..2).forEach { match ->
-            val constantIndex = match.instructionMatches[0].index
+            val moveResultIndex = match.instructionMatches[2].index
             val register =
-                match.method.getInstruction<OneRegisterInstruction>(constantIndex).registerA
+                match.method.getInstruction<OneRegisterInstruction>(moveResultIndex).registerA
             match.method.replaceInstruction(
-                constantIndex,
-                "const-string v$register, \"subscribed\"",
+                moveResultIndex,
+                "const/4 v$register, 0x0",
             )
         }
     }

@@ -88,17 +88,37 @@ object AppOpenAdManagerOnCreateFingerprint : Fingerprint(
 )
 
 /**
- * Matches the two `const-string "nosub"` comparisons that show the
- * non-dismissible `SubscriptionExpiredDialog`:
+ * Matches the two `SubscriptionExpiredDialog` gates, in
+ * `Lmk/neptun/neptunapp/MovieDetails;->onCreate` (smali line 5934) and
+ * `Lmk/neptun/neptunapp/WebSeriesDetails;->onCreate` (smali line 5568):
  *
- * - `Lmk/neptun/neptunapp/MovieDetails;->onCreate` (smali line 5934)
- * - `Lmk/neptun/neptunapp/WebSeriesDetails;->onCreate` (smali line 5568)
+ * ```smali
+ * const-string vX, "nosub"
+ * invoke-virtual {vX, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+ * move-result p1                 <-- patch point
+ * if-eqz p1, :cond_5e
+ * ```
  *
- * Both compare `"nosub".equals(prefs.getString("subscriptionStatus", ""))` and
- * show the expired-subscription nag when the server flags the account. Exactly
- * two such strings exist in the whole app (verified by search over all 10 smali
- * trees).
+ * The stored value is the server-provided `subscriptionStatus`, and the dialog
+ * (non-dismissible) is shown when it equals `"nosub"`. Exactly two such
+ * literals exist in the whole app (verified by search over all 10 smali trees).
+ *
+ * The patch forces the `equals` RESULT to false instead of rewriting the
+ * `"nosub"` literal to some other value. A literal swap only works while the
+ * replacement string happens to be one the backend never sends: 25.0.0 uses
+ * `"active"`/`"nosub"`, so `"subscribed"` would be inert today, but any future
+ * status vocabulary that adopted it would make the nag appear for legitimate
+ * subscribers. Forcing the result is vocabulary-independent.
  */
 object SubscriptionExpiredNagFingerprint : Fingerprint(
-    filters = listOf(string("nosub")),
+    filters = listOf(
+        string("nosub"),
+        methodCall(
+            definingClass = "Ljava/lang/String;",
+            name = "equals",
+            parameters = listOf("Ljava/lang/Object;"),
+            returnType = "Z",
+        ),
+        opcode(Opcode.MOVE_RESULT, InstructionLocation.MatchAfterImmediately()),
+    ),
 )
