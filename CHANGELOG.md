@@ -1,3 +1,9 @@
+## [1.4.0-dev.2](https://github.com/callMeBeyonder/morphe-patches/compare/v1.4.0-dev.1...v1.4.0-dev.2) (2026-11-02)
+
+### ✨ New Features
+
+* **macrofactor:** support Workouts 1.4.2 ([7c77200](https://github.com/callMeBeyonder/morphe-patches/commit/7c7720070037076e71b90c25e32816d03ce3be0a))
+
 ## [1.4.0-dev.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.3.0...v1.4.0-dev.1) (2026-11-01)
 
 ### ✨ New Features
