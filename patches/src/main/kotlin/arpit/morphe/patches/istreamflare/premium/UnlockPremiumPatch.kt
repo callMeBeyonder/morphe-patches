@@ -18,8 +18,15 @@ import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
  * parser is forced to read `"123"`, which sets its `removeAds`, `playPremium`
  * and `downloadPremium` booleans through the app's own digit logic. That covers
  * the premium play and download paywalls (`Buy_Premium_Dialog`) and every ad
- * placement, all of which are gated on those booleans (banners, interstitials
- * and the app-open ads of the AdMob/Wortise managers).
+ * placement whose gate lives on those screens, all of which are bound to those
+ * booleans (banners, interstitials and the app-open ads of the AdMob/Wortise
+ * managers).
+ *
+ * Three list adapters do not use the screen booleans at all: they read the
+ * per-item `Play_Premium` flag the API returns for each row (live TV channels
+ * and episodes) and the per-episode `downloadPremium` flag. Those four getters
+ * are forced to return true as well, otherwise live TV and episode play/download
+ * would still open the paywall.
  *
  * The expired-subscription nag (`SubscriptionExpiredDialog`) that the server
  * triggers with the account status "nosub" is silenced by forcing its
@@ -88,6 +95,30 @@ val unlockPremiumPatch = bytecodePatch(
             match.method.replaceInstruction(
                 moveResultIndex,
                 "const/4 v$register, 0x0",
+            )
+        }
+
+        //
+        // Target 3 — force the per-item premium getters.
+        //
+        // The live TV and episode adapters gate `Buy_Premium_Dialog` on the
+        // `Play_Premium`/`downloadPremium` flags the API returns per row, not on
+        // the screen booleans Target 1 sets, so those paywalls would survive
+        // without this. Each getter is a plain `iget-boolean` + `return`, so an
+        // early `return true` is enough; the original body stays as dead code.
+        //
+        listOf(
+            EpisodeIsPlayPremiumFingerprint,
+            EpisodeIsDownloadPremiumFingerprint,
+            LiveTvAllIsPlayPremiumFingerprint,
+            LiveTvChannelIsPlayPremiumFingerprint,
+        ).forEach { fingerprint ->
+            fingerprint.method.addInstructions(
+                0,
+                """
+                    const/4 v0, 0x1
+                    return v0
+                """,
             )
         }
     }

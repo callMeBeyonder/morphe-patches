@@ -122,3 +122,56 @@ object SubscriptionExpiredNagFingerprint : Fingerprint(
         opcode(Opcode.MOVE_RESULT, InstructionLocation.MatchAfterImmediately()),
     ),
 )
+
+/*
+ * Per-item premium flags.
+ *
+ * The screen parsers above only reach gates whose boolean lives on the screen or
+ * adapter. Three list adapters instead read the per-item `Play_Premium` flag the
+ * API returns for every row (live TV channels and episodes) plus the per-episode
+ * `downloadPremium` flag, so those paywalls are unaffected by the parser patch:
+ *
+ * - `EpisodeListAdepter` -> `EpisodeList.isPlay_Premium()` (play) and
+ *   `EpisodeList.isDownloadPremium()` (download)
+ * - `LiveTvChannelListAdepter` -> `LiveTvChannelList.isPlay_Premium()`
+ * - `LiveTvAllListAdepter` -> `LiveTvAllList.isPlay_Premium()`
+ *
+ * All four are plain field getters (`iget-boolean` + `return`), so the patch
+ * forces each to return true. Verified for 25.0.0 in smali/classes9.
+ */
+
+/** `Lmk/neptun/neptunapp/list/EpisodeList;->isPlay_Premium()Z` (line 331). */
+object EpisodeIsPlayPremiumFingerprint : Fingerprint(
+    definingClass = "Lmk/neptun/neptunapp/list/EpisodeList;",
+    name = "isPlay_Premium",
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "Z",
+    parameters = emptyList(),
+)
+
+/** `Lmk/neptun/neptunapp/list/EpisodeList;->isDownloadPremium()Z` (line 322). */
+object EpisodeIsDownloadPremiumFingerprint : Fingerprint(
+    definingClass = "Lmk/neptun/neptunapp/list/EpisodeList;",
+    name = "isDownloadPremium",
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "Z",
+    parameters = emptyList(),
+)
+
+/** `Lmk/neptun/neptunapp/list/LiveTvAllList;->isPlay_Premium()Z` (line 177). */
+object LiveTvAllIsPlayPremiumFingerprint : Fingerprint(
+    definingClass = "Lmk/neptun/neptunapp/list/LiveTvAllList;",
+    name = "isPlay_Premium",
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "Z",
+    parameters = emptyList(),
+)
+
+/** `Lmk/neptun/neptunapp/list/LiveTvChannelList;->isPlay_Premium()Z` (line 177). */
+object LiveTvChannelIsPlayPremiumFingerprint : Fingerprint(
+    definingClass = "Lmk/neptun/neptunapp/list/LiveTvChannelList;",
+    name = "isPlay_Premium",
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    returnType = "Z",
+    parameters = emptyList(),
+)
