@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.4.0...v1.5.0) (2026-11-04)
+
+### ✨ New Features
+
+* **healthifyme:** support 31.5 with premium unlocks and analytics removal ([24598a2](https://github.com/callMeBeyonder/morphe-patches/commit/24598a234e609fe424e73afb0f77254b8e8a8025))
+
 ## [1.4.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.3.0...v1.4.0) (2026-11-02)
 
 ### ✨ New Features
