@@ -10,6 +10,7 @@ import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Method
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
+import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.value.StringEncodedValue
 
 /**
@@ -419,15 +420,19 @@ object FeatureConfigTagButtonInfoFingerprint : Fingerprint(
 )
 
 /**
- * Class locator for `NextGenDashboardResponseItem` (`Lpp0/n0;`, classes12).
+ * Class locator for `NextGenDashboardResponseItem` (`Lhp0/n0;` in 31.6, `Lpp0/n0;`
+ * in 31.5, classes12).
  *
  * The dashboard_v3 response item that carries the header's server-provided status chip
  * (`user_state_tag_info`, e.g. "Free Trial Expired" with type
  * `free_trial_new_hook_premium_tag_locked_pwyw`).
  *
- * Anchors (verified against `smali/classes12/pp0/n0.smali`):
+ * Anchors:
  * - `toString` literal `"NextGenDashboardResponseItem(extraData="` — unique in the APK;
  * - Gson (`@zh/c`) field `user_state_tag_info`.
+ *
+ * The obfuscated package moved from `pp0` to `hp0` in 31.6, so the name is deliberately
+ * not used as an anchor.
  */
 object NextGenDashboardResponseItemClassFingerprint : Fingerprint(
     name = "toString",
@@ -443,19 +448,21 @@ object NextGenDashboardResponseItemClassFingerprint : Fingerprint(
 )
 
 /**
- * Matches `NextGenDashboardResponseItem.getUserStatusTag()` (`Lpp0/n0;`, method `t()`).
+ * Matches `NextGenDashboardResponseItem.getUserStatusTag()` (`Lhp0/n0;` in 31.6,
+ * `Lpp0/n0;` in 31.5, method `t()`).
  *
  * `DashboardResponseUseCase` converts the tag into the header `FreemiumHeader`
  * ("Free Trial Expired" chip). Returning `null` hides the chip; the caller already
  * handles a null tag by building no header. The rest of the profile header is untouched.
  *
- * Getter shape (verified): `.registers 2`, `public final`, body is a single
- * `iget-object v0, p0, ...->d:Lpp0/e1;` + `return-object v0`.
+ * Getter shape (verified for both versions): `.registers 2`, `public final`, body is a
+ * single `iget-object v0, p0, ...->d:<package>/e1;` + `return-object v0`. The return
+ * type's package moved with the model, so the getter is resolved through its Gson field
+ * rather than a hardcoded type.
  */
 object NextGenDashboardUserStatusTagFingerprint : Fingerprint(
     classFingerprint = NextGenDashboardResponseItemClassFingerprint,
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
-    returnType = "Lpp0/e1;",
     parameters = emptyList(),
     filters = listOf(
         fieldAccess(opcode = Opcode.IGET_OBJECT),
@@ -517,7 +524,8 @@ object RiaInsightShouldShowLockStateFingerprint : Fingerprint(
 )
 
 /**
- * Matches `AllNutrientsViewModel.getShouldShowLockedState()Z` (`Lvx/b;`, method `K()`).
+ * Matches `AllNutrientsViewModel.getShouldShowLockedState()Z` (`Lnx/b;` in 31.6,
+ * `Lvx/b;` in 31.5, method `K()`).
  *
  * The "All Nutrients" screen (`AllNutrientsActivity`) builds its nutrient adapter unlocked,
  * then after 450 ms calls `NutrientsAdapter.m151021O(true)` when this getter is `true`:
@@ -528,23 +536,26 @@ object RiaInsightShouldShowLockStateFingerprint : Fingerprint(
  *
  * `K()` is the only caller of that interactor method in this screen, and its only call
  * site is `AllNutrientsActivity.m51255l6()` (dashboard/insight "all nutrients" entry).
- * Getter shape (verified in `smali/classes11/vx/b.smali`): `.registers 2`, `public final`,
- * `iget-object` the `Lqx/e;` field, `invoke-interface ->b()Z`, `move-result`, `return`.
+ * Getter shape (verified for both versions): `.registers 2`, `public final`,
+ * `iget-object` the interactor field, `invoke-interface ->b()Z`, `move-result`, `return`.
+ * The interactor's package changed in 31.6, so the call is matched by shape rather than
+ * by its obfuscated type.
  */
 object AllNutrientsLockedStateFingerprint : Fingerprint(
     name = "K",
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
     returnType = "Z",
     parameters = emptyList(),
-    filters = listOf(
-        methodCall(
-            definingClass = "Lqx/e;",
-            name = "b",
-            returnType = "Z",
-        ),
-    ),
-    custom = { _, classDef ->
-        classDef.sourceFile == "AllNutrientsViewModel.kt" &&
+    custom = { method, classDef ->
+        val implementation = method.implementation
+        implementation != null &&
+            implementation.registerCount == 2 &&
+            implementation.instructions.any { instruction ->
+                instruction.opcode == Opcode.INVOKE_INTERFACE &&
+                    ((instruction as? ReferenceInstruction)?.reference as? MethodReference)
+                        ?.let { it.name == "b" && it.returnType == "Z" } == true
+            } &&
+            classDef.sourceFile == "AllNutrientsViewModel.kt" &&
             classDef.fields.any { it.type == "Landroidx/lifecycle/MutableLiveData;" }
     },
 )
@@ -593,20 +604,21 @@ object TimelineFoodFreemiumLockedFingerprint : Fingerprint(
 )
 
 /**
- * Matches `TimelineFood.getFreemiumTag()` (`Ljq0/c;`, method `d()`).
+ * Matches `TimelineFood.getFreemiumTag()` (`Lbq0/c;` in 31.6, `Ljq0/c;` in 31.5,
+ * method `d()`).
  *
  * `TimelineFoodCard` draws `FreemiumDivider` whenever this tag is non-null; the tag is the
  * "Premium" label above the blurred PFCF row. Returning `null` drops the divider while
  * keeping the rest of the card (calories, foods, photos, description) intact.
  *
- * Getter shape (verified): `.registers 2`, `public final`,
- * `iget-object v0, p0, Ljq0/c;->i:Llp0/r;`, `return-object v0`.
+ * Getter shape (verified for both versions): `.registers 2`, `public final`, a single
+ * `iget-object` + `return-object`. The tag type's package moved with the model, so the
+ * getter is matched by shape and class rather than a hardcoded return type.
  */
 object TimelineFoodFreemiumTagFingerprint : Fingerprint(
     classFingerprint = TimelineFoodClassFingerprint,
     name = "d",
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
-    returnType = "Llp0/r;",
     parameters = emptyList(),
     filters = listOf(
         fieldAccess(opcode = Opcode.IGET_OBJECT),

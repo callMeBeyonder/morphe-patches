@@ -18,6 +18,9 @@ object Constants {
                 // The real versionName carries a leading "v" (AndroidManifest.xml
                 // and XAPK manifest.json both say "v31.5").
                 version = "v31.5"
+            ),
+            AppTarget(
+                version = "v31.6"
             )
         )
     )
