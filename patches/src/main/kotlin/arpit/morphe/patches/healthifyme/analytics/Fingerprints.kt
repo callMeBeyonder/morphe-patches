@@ -241,3 +241,37 @@ object FacebookAnalyticsEnabledFingerprint : Fingerprint(
     returnType = "Z",
     parameters = emptyList(),
 )
+
+/**
+ * `FacebookSdk.setAdvertiserIDCollectionEnabled(boolean)` (`V(Z)V`). The app enables it
+ * during startup; forcing the argument `false` stops advertising-identifier collection
+ * without disabling the SDK or Facebook login.
+ *
+ * Verified against `smali/classes/com/facebook/e.smali` — static final `V(Z)V`,
+ * `.registers 1`.
+ */
+object FacebookAdvertiserIdCollectionFingerprint : Fingerprint(
+    name = "V",
+    definingClass = "Lcom/facebook/e;",
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC, AccessFlags.FINAL),
+    returnType = "V",
+    parameters = listOf("Z"),
+)
+
+/**
+ * `FacebookSdk.setAutoLogAppEventsEnabled(boolean)` (`X(Z)V`). When `true`, this also
+ * registers `ActivityLifecycleTracker`, which is what emits automatic app-launch/session
+ * events independently of the app's `FacebookAnalyticsUtils` wrapper. Forcing the
+ * argument `false` removes that automatic tracking while leaving SDK initialisation and
+ * login untouched.
+ *
+ * Verified against `smali/classes/com/facebook/e.smali` — static final `X(Z)V`,
+ * `.registers 2`.
+ */
+object FacebookAutoLogAppEventsFingerprint : Fingerprint(
+    name = "X",
+    definingClass = "Lcom/facebook/e;",
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC, AccessFlags.FINAL),
+    returnType = "V",
+    parameters = listOf("Z"),
+)

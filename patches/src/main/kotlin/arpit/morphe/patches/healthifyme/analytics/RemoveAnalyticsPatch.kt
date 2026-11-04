@@ -22,7 +22,8 @@ import arpit.morphe.patches.healthifyme.shared.Constants.COMPATIBILITY_HEALTHIFY
  * direct `start` call in `AppLaunchLibsHandler`, and the app wrapper's event/property
  * methods are disabled.
  *
- * Facebook app-event reporting is disabled through the app wrapper. The Facebook SDK
+ * Facebook app-event reporting is disabled through the app wrapper, and the SDK's own
+ * automatic app events and advertiser-ID collection are forced off. The Facebook SDK
  * itself is left initialised because it also backs Facebook login. Crash reporting
  * (Crashlytics/Sentry) and Branch deep links are intentionally left intact.
  */
@@ -30,8 +31,8 @@ import arpit.morphe.patches.healthifyme.shared.Constants.COMPATIBILITY_HEALTHIFY
 val removeAnalyticsPatch = bytecodePatch(
     name = "Remove analytics",
     description = "Stops Firebase Analytics and CleverTap reporting, AppsFlyer attribution, " +
-        "and Facebook app events. CleverTap push/in-app initialisation is disabled; " +
-        "crash reporting and Branch deep links are kept.",
+        "and Facebook automatic app events/advertiser-ID collection. CleverTap push/in-app " +
+        "initialisation is disabled; crash reporting and Branch deep links are kept.",
     default = true,
 ) {
     compatibleWith(COMPATIBILITY_HEALTHIFYME)
@@ -79,7 +80,9 @@ val removeAnalyticsPatch = bytecodePatch(
         )
         AppsFlyerSetPropertiesFingerprint.method.addInstructions(0, "return-void")
 
-        // Facebook app events. The SDK stays initialised for Facebook login.
+        // Facebook app events. The SDK stays initialised for Facebook login, but its
+        // explicit events, automatic lifecycle events and advertiser-ID collection are
+        // all forced off.
         FacebookAnalyticsEnabledFingerprint.method.addInstructions(
             0,
             """
@@ -87,5 +90,7 @@ val removeAnalyticsPatch = bytecodePatch(
                 return v0
             """,
         )
+        FacebookAutoLogAppEventsFingerprint.method.addInstructions(0, "const/4 p0, 0x0")
+        FacebookAdvertiserIdCollectionFingerprint.method.addInstructions(0, "const/4 p0, 0x0")
     }
 }
