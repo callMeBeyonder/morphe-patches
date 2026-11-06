@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "patches": [
     {
       "name": "Bypass Root Detection",
@@ -190,6 +190,32 @@
             },
             {
               "version": "7.4",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Unlock Premium",
+      "description": "Unlocks the Pro surfaces that are computed on-device (Strength Score, per-muscle volume heatmap, auto-progression and the analytics screens) by reporting an active RevenueCat entitlement to the app's JavaScript layer. Server-delivered coach programs still require a real subscription.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.bpmhealth.boostcamp",
+          "name": "Boostcamp",
+          "description": null,
+          "apkFileType": "XAPK",
+          "appIconColor": "#2A2132",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "267",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,

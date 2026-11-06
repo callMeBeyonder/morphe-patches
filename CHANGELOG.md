@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.5.2...v1.6.0) (2026-11-06)
+
+### ✨ New Features
+
+* **boostcamp:** add premium unlock patch for v267 ([12eaf2a](https://github.com/callMeBeyonder/morphe-patches/commit/12eaf2aced4c73caa6dbf8108d364e53e42e73d7))
+
 ## [1.5.2](https://github.com/callMeBeyonder/morphe-patches/compare/v1.5.1...v1.5.2) (2026-11-04)
 
 ### 🚀 Updated App Support
