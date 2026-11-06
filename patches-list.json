@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "patches": [
     {
       "name": "Bypass Root Detection",
@@ -249,6 +249,32 @@
             },
             {
               "version": "v31.6",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Unlock Premium",
+      "description": "Unlocks the premium training features by answering the web app's subscription request with an active `training` subscription, and disables the PairIP license check so the re-signed build does not open its paywall. Account data that the server owns is not affected.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.rp.hypertrophy",
+          "name": "RP Hypertrophy",
+          "description": null,
+          "apkFileType": "XAPK",
+          "appIconColor": "#EC0915",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.9.0",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,

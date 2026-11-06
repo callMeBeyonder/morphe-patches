@@ -1,3 +1,9 @@
+## [1.7.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.6.0...v1.7.0) (2026-11-06)
+
+### ✨ New Features
+
+* **hypertrophy:** add premium unlock patch for v1.9.0 ([4437712](https://github.com/callMeBeyonder/morphe-patches/commit/44377124f2d01c9a6e3cffe7f30bfdebe1e37d77))
+
 ## [1.6.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.5.2...v1.6.0) (2026-11-06)
 
 ### ✨ New Features
