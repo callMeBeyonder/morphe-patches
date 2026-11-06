@@ -1,3 +1,9 @@
+## [1.7.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.7.0...v1.7.1) (2026-11-06)
+
+### 🐛 Bug Fixes
+
+* **hypertrophy:** match the API subscriptions path and call interface methods ([8ef8401](https://github.com/callMeBeyonder/morphe-patches/commit/8ef8401f1f7ea4159ad5ee65005b7feaa2a7d258))
+
 ## [1.7.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.6.0...v1.7.0) (2026-11-06)
 
 ### ✨ New Features
