@@ -9,7 +9,10 @@ import com.android.tools.smali.dexlib2.builder.MutableMethodImplementation
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethod
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethodParameter
 
-/** API path the web app uses to read the account's subscription state. */
+/**
+ * Suffix of the path the web app uses to read the account's subscription state.
+ * It is requested from the API host, so the path is `/api/user/subscriptions`.
+ */
 private const val SUBSCRIPTIONS_PATH = "/user/subscriptions"
 
 /**
@@ -26,7 +29,7 @@ private const val SUBSCRIPTIONS_JSON =
  *
  * The Android app is a WebView shell around `training.rpstrength.com`; all paid
  * UI is rendered by the web app, which decides access from a single request to
- * `apps.rpstrength.com/user/subscriptions`. The patch adds a
+ * `apps.rpstrength.com/api/user/subscriptions`. The patch adds a
  * `shouldInterceptRequest` override to the shell's `WebViewClient` that answers
  * that request with a subscription marked as active for `training` and lets
  * every other request pass through to the real network.
@@ -82,19 +85,21 @@ val unlockPremiumPatch = bytecodePatch(
         method.addInstructions(
             0,
             """
-                invoke-virtual {p2}, Landroid/webkit/WebResourceRequest;->getUrl()Landroid/net/Uri;
+                invoke-interface {p2}, Landroid/webkit/WebResourceRequest;->getUrl()Landroid/net/Uri;
                 move-result-object v0
 
                 invoke-virtual {v0}, Landroid/net/Uri;->getPath()Ljava/lang/String;
                 move-result-object v0
 
+                if-eqz v0, :original
+
                 const-string v1, "$SUBSCRIPTIONS_PATH"
-                invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                invoke-virtual {v0, v1}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
                 move-result v0
 
                 if-eqz v0, :original
 
-                invoke-virtual {p2}, Landroid/webkit/WebResourceRequest;->getMethod()Ljava/lang/String;
+                invoke-interface {p2}, Landroid/webkit/WebResourceRequest;->getMethod()Ljava/lang/String;
                 move-result-object v0
 
                 const-string v1, "GET"
@@ -106,7 +111,7 @@ val unlockPremiumPatch = bytecodePatch(
                 new-instance v0, Ljava/util/HashMap;
                 invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
-                invoke-virtual {p2}, Landroid/webkit/WebResourceRequest;->getRequestHeaders()Ljava/util/Map;
+                invoke-interface {p2}, Landroid/webkit/WebResourceRequest;->getRequestHeaders()Ljava/util/Map;
                 move-result-object v1
 
                 const-string v2, "Origin"
