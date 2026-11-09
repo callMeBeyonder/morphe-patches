@@ -1,3 +1,9 @@
+## [1.8.1](https://github.com/callMeBeyonder/morphe-patches/compare/v1.8.0...v1.8.1) (2026-11-09)
+
+### 🐛 Bug Fixes
+
+* **crossrope:** force Standard membership tier to unlock premium surfaces ([675aa7a](https://github.com/callMeBeyonder/morphe-patches/commit/675aa7a2a67cf27e11b78e84b86f716a2490339a))
+
 ## [1.8.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.7.1...v1.8.0) (2026-11-08)
 
 ### 🐛 Bug Fixes
