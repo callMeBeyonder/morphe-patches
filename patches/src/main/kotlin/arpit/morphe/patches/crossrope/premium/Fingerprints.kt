@@ -25,3 +25,33 @@ object PremiumFlagFingerprint : Fingerprint(
     parameters = listOf(),
     strings = listOf("is_premium", "just_bought_premium")
 )
+
+/**
+ * Matches the session class's membership tier getter.
+ *
+ * Feature access in this app is not decided by a boolean alone. `Le6/V0;` is the
+ * feature-flag store; its `b(Le6/T0;)Z` gate first requires `Le6/e2;->r()Z`
+ * (the `is_logged_in` preference), then branches on the enum returned by
+ * `Le6/e2;->j()LU5/A;`:
+ *
+ * ```
+ * ordinal 0 -> LU5/A.A  "free"      -> every flag false
+ * ordinal 1 -> LU5/A.B  "lite"      -> a fixed small subset of flags
+ * ordinal 2 -> LU5/A.C  "Standard"  -> every flag true
+ * ```
+ *
+ * The flags cover `WorkoutLock`, `WorkoutPreview`, `ClassLock`, `ClassPreview`,
+ * `ProgramLock`, `ProgramPreview`, `ProgramWorkoutLock`, `Benchmark`, `Counting`
+ * and `Profile`. Forcing the tier to `Standard` therefore opens every gated
+ * surface, including the program day that otherwise routes to `PremiumActivity`.
+ *
+ * `j()` reads the `membership_tier` preference and maps it through
+ * `LU5/A$a;->a(Ljava/lang/String;)LU5/A;`, so the pref key is the stable handle
+ * here; the obfuscated return type only narrows the match within this version.
+ */
+object MembershipTierFingerprint : Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
+    returnType = "LU5/A;",
+    parameters = listOf(),
+    strings = listOf("membership_tier")
+)

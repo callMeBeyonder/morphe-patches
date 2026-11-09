@@ -8,10 +8,19 @@ import arpit.morphe.patches.crossrope.shared.Constants.COMPATIBILITY_CROSSROPE
  * Unlocks Crossrope Premium.
  *
  * Crossrope is a native Kotlin app whose account state lives in `SharedPreferences`.
- * The paid flag is exposed by one zero-argument boolean method on the session class,
- * which ORs the `is_premium` and `just_bought_premium` keys together. Every paid
- * surface (workout and video playback, programs, challenges, the plan screens and the
- * settings subscription row) reads that method, so forcing it true unlocks them all.
+ * Two client-side gates decide what a signed-in account may open:
+ *
+ * 1. `isPremium()` on the session class, which ORs the `is_premium` and
+ *    `just_bought_premium` keys. Roughly two dozen screens call it.
+ * 2. The membership tier, read from the `membership_tier` preference and mapped to
+ *    `LU5/A` (`free` / `lite` / `Standard`). The feature-flag store `Le6/V0;`
+ *    branches on that enum in `b(Le6/T0;)Z`, which is what actually gates workouts,
+ *    classes, programs, benchmarks, counting and the profile tab.
+ *
+ * The boolean alone is not enough: with only `isPremium()` forced true, opening a
+ * premium program day still lands on `PremiumActivity`, which then reports
+ * "You're already premium" and closes — a dead end. Forcing the tier to `Standard`
+ * is what opens those flows, so both methods are patched.
  *
  * Google Play Billing stays untouched: purchases, restore and the billing client are
  * not modified. The patch only changes what the *client* believes about the account,
@@ -21,10 +30,11 @@ import arpit.morphe.patches.crossrope.shared.Constants.COMPATIBILITY_CROSSROPE
 @Suppress("unused")
 val unlockPremiumPatch = bytecodePatch(
     name = "Unlock Premium",
-    description = "Reports the account as premium by forcing the app's stored " +
-        "`is_premium` check to true, which unlocks the paid workout, program and " +
-        "challenge surfaces. Billing is untouched; media the server refuses to " +
-        "serve to free accounts may still fail to load.",
+    description = "Reports the account as premium by forcing the stored " +
+        "`is_premium` check to true and the `membership_tier` getter to the " +
+        "`Standard` tier, which unlocks the paid workout, class, program, " +
+        "benchmark and profile surfaces. Billing is untouched; media the server " +
+        "refuses to serve to free accounts may still fail to load.",
     default = true,
 ) {
     compatibleWith(COMPATIBILITY_CROSSROPE)
@@ -37,9 +47,9 @@ val unlockPremiumPatch = bytecodePatch(
         // accessor always reads two preference keys, so a missing local means the
         // fingerprint matched the wrong method — fail loudly instead of emitting
         // invalid smali.
-        val registerCount = flagged.implementation?.registerCount ?: 0
-        check(registerCount >= 1) {
-            "isPremium() has $registerCount registers; the patch needs at least one " +
+        val flagRegisters = flagged.implementation?.registerCount ?: 0
+        check(flagRegisters >= 1) {
+            "isPremium() has $flagRegisters registers; the patch needs at least one " +
                 "local to return true."
         }
 
@@ -48,6 +58,24 @@ val unlockPremiumPatch = bytecodePatch(
             """
                 const/4 v0, 0x1
                 return v0
+            """,
+        )
+
+        val tier = MembershipTierFingerprint.method
+
+        // `LU5/A;->C` is the `Standard` tier, the enum ordinal that makes
+        // `Le6/V0;->b(Le6/T0;)Z` return true for every feature flag.
+        val tierRegisters = tier.implementation?.registerCount ?: 0
+        check(tierRegisters >= 1) {
+            "membership tier getter has $tierRegisters registers; the patch needs at " +
+                "least one local to return the Standard tier."
+        }
+
+        tier.addInstructions(
+            0,
+            """
+                sget-object v0, LU5/A;->C:LU5/A;
+                return-object v0
             """,
         )
     }
