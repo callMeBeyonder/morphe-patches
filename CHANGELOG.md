@@ -1,3 +1,9 @@
+## [1.12.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.11.0...v1.12.0) (2026-11-11)
+
+### ✨ New Features
+
+* **c25k:** add premium unlock patch for C25K 144.27 ([424767e](https://github.com/callMeBeyonder/morphe-patches/commit/424767e92b1b4555c35f21c83af06e686660bfcf))
+
 ## [1.11.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.10.0...v1.11.0) (2026-11-11)
 
 ### ✨ New Features
