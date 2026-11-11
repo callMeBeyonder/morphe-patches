@@ -1,3 +1,9 @@
+## [1.10.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.9.0...v1.10.0) (2026-11-11)
+
+### ✨ New Features
+
+* **macrofactor:** support Workouts 1.4.3 ([ac31da2](https://github.com/callMeBeyonder/morphe-patches/commit/ac31da2a6d89c3b30d29376df023ecaa936d799f))
+
 ## [1.9.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.8.1...v1.9.0) (2026-11-09)
 
 ### ✨ New Features
