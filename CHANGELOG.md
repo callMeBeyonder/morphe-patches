@@ -1,3 +1,9 @@
+## [1.11.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.10.0...v1.11.0) (2026-11-11)
+
+### ✨ New Features
+
+* **macrofactor-diet:** add premium unlock patch for MacroFactor 5.8.11 ([7348fe3](https://github.com/callMeBeyonder/morphe-patches/commit/7348fe374a65742e38f0e65d846c786df179ba93))
+
 ## [1.10.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.9.0...v1.10.0) (2026-11-11)
 
 ### ✨ New Features
