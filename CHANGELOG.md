@@ -1,3 +1,9 @@
+## [1.17.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.16.0...v1.17.0) (2026-11-13)
+
+### ✨ New Features
+
+* **pushups100:** add premium unlock patch for 0-100 Pushups 5.3.3 ([6c2c24b](https://github.com/callMeBeyonder/morphe-patches/commit/6c2c24b5cb1067ec8248b2c8f58aa58e68cf599f))
+
 ## [1.16.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.15.0...v1.16.0) (2026-11-13)
 
 ### ✨ New Features
