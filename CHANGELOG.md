@@ -1,3 +1,14 @@
+## [1.13.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.12.0...v1.13.0) (2026-11-13)
+
+### 🐛 Bug Fixes
+
+* **runna:** clear free-trial subscription status to hide plan CTA ([9ddbf9b](https://github.com/callMeBeyonder/morphe-patches/commit/9ddbf9b42f2097b0430c788d88d078a7ca0252cf))
+* **runna:** rewrite Expo fetch responses to unlock plan weeks ([1bc81f1](https://github.com/callMeBeyonder/morphe-patches/commit/1bc81f1ef4b5705035aa3b7656f0fc73b69d1a1d))
+
+### ✨ New Features
+
+* **runna:** add premium unlock patch for Runna 8.61.0 ([7cc4856](https://github.com/callMeBeyonder/morphe-patches/commit/7cc4856b2945e0ec2e0c49e280439bc420591032))
+
 ## [1.12.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.11.0...v1.12.0) (2026-11-11)
 
 ### ✨ New Features
