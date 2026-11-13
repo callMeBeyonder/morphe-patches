@@ -56,9 +56,10 @@ private fun smaliRegisterName(method: Method, index: Int): String {
 @Suppress("unused")
 val unlockPremiumPatch = bytecodePatch(
     name = "Unlock Premium",
-    description = "Reports an active `premium` entitlement to Runna's JavaScript layer " +
-        "and clears the backend's client-side plan lock flags, unlocking premium screens " +
-        "and all plan weeks without a Play purchase.",
+    description = "Reports an active `premium` entitlement to Runna's JavaScript layer, " +
+        "clears the backend's client-side plan lock flags and subscription status, " +
+        "unlocking premium screens, all plan weeks and the plan footer without a Play " +
+        "purchase.",
     default = true,
 ) {
     compatibleWith(COMPATIBILITY_RUNNA)
@@ -183,10 +184,14 @@ val unlockPremiumPatch = bytecodePatch(
          * Plan content gate.
          *
          * Even with an active entitlement the backend still tags plan weeks as
-         * `lockedV3: { isLocked: true, lockedType: "FREE_TRIAL_LOCKED" }` because the
-         * account has no real Play purchase. The workout data itself is delivered —
-         * it is already in the Apollo cache — so the lock is only a rendering flag
-         * that the bundle reads from the GraphQL payload.
+         * `lockedV3: { isLocked: true, lockedType: "FREE_TRIAL_LOCKED" }` and reports
+         * `subscriptionStatus: FREE_TRIAL` / `subscriptionStatusV2: FREE_USER`
+         * because the account has no real Play purchase. The workout data itself is
+         * delivered — it is already in the Apollo cache — so the lock is only a
+         * rendering flag that the bundle reads from the GraphQL payload. The two
+         * subscription fields feed `useFreeUserLockedContent` and the plan footer,
+         * which otherwise keeps a "Subscribe to Runna Premium" CTA pinned to the
+         * Plan tab even when every week is visible.
          *
          * Expo SDK 54 installs `expo/fetch` as the global `fetch` and Apollo's
          * `HttpLink` passes no custom fetcher, so responses never reach React
@@ -210,7 +215,7 @@ val unlockPremiumPatch = bytecodePatch(
 
         // `new String(bytes, charset)` leaves the decoded body in its destination
         // register; the byte-array and charset registers are dead afterwards and can
-        // be reused as scratch space for the two replacements.
+        // be reused as scratch space for the replacements.
         val decode = textCallback.getInstruction<FiveRegisterInstruction>(decodeIndex)
         val bodyRegister = decode.getRegisterC()
         val bytesRegister = decode.getRegisterD()
@@ -232,6 +237,14 @@ val unlockPremiumPatch = bytecodePatch(
                 move-result-object $body
                 const-string $scratchA, "\"lockedType\":\"FREE_TRIAL_LOCKED\""
                 const-string $scratchB, "\"lockedType\":\"NOT_LOCKED\""
+                invoke-virtual {$body, $scratchA, $scratchB}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+                move-result-object $body
+                const-string $scratchA, "\"subscriptionStatus\":\"FREE_TRIAL\""
+                const-string $scratchB, "\"subscriptionStatus\":\"ACTIVE\""
+                invoke-virtual {$body, $scratchA, $scratchB}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+                move-result-object $body
+                const-string $scratchA, "\"subscriptionStatusV2\":\"FREE_USER\""
+                const-string $scratchB, "\"subscriptionStatusV2\":\"PREMIUM\""
                 invoke-virtual {$body, $scratchA, $scratchB}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
                 move-result-object $body
             """,
