@@ -1,3 +1,9 @@
+## [1.15.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.14.0...v1.15.0) (2026-11-13)
+
+### ✨ New Features
+
+* **c131:** add premium unlock patch for Half Marathon 13.1 96.03 ([c91d232](https://github.com/callMeBeyonder/morphe-patches/commit/c91d232cd006a74353cf715ebe4dca1626037e93))
+
 ## [1.14.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.13.0...v1.14.0) (2026-11-13)
 
 ### ✨ New Features
