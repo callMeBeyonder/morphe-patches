@@ -1,6 +1,9 @@
 package arpit.morphe.patches.runna.premium
 
 import app.morphe.patcher.Fingerprint
+import app.morphe.util.getReference
+import com.android.tools.smali.dexlib2.Opcode
+import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 
 /**
  * Matches `EntitlementInfosMapperKt.map(EntitlementInfos)` of RevenueCat's
@@ -22,4 +25,38 @@ object EntitlementInfosMapperFingerprint : Fingerprint(
     name = "map",
     parameters = listOf("Lcom/revenuecat/purchases/EntitlementInfos;"),
     returnType = "Ljava/util/Map;",
+)
+
+/**
+ * Matches Expo's `fetch` response callback that decodes the collected body bytes
+ * into a `String` and resolves the JS promise with it.
+ *
+ * Expo SDK 54 installs `expo/fetch` as the global `fetch` polyfill (unless
+ * `EXPO_PUBLIC_USE_RN_FETCH` is set), so Apollo's `HttpLink` never reaches React
+ * Native's `NetworkingModule`. The callback is an R8-renamed Kotlin lambda, so it
+ * is matched by its behavior rather than by name: it decodes a byte array as
+ * UTF-8 and resolves a `String` promise. That combination is unique in the app.
+ */
+object ExpoFetchTextResponseFingerprint : Fingerprint(
+    returnType = "V",
+    custom = { method, _ ->
+        val instructions = method.implementation?.instructions
+        method.parameterTypes.size == 1 && instructions != null &&
+            instructions.any { instruction ->
+                instruction.opcode == Opcode.INVOKE_DIRECT &&
+                    instruction.getReference<MethodReference>()?.let { reference ->
+                        reference.definingClass == "Ljava/lang/String;" &&
+                            reference.name == "<init>" &&
+                            reference.parameterTypes == listOf("[B", "Ljava/nio/charset/Charset;")
+                    } == true
+            } &&
+            instructions.any { instruction ->
+                instruction.opcode == Opcode.INVOKE_INTERFACE &&
+                    instruction.getReference<MethodReference>()?.let { reference ->
+                        reference.definingClass == "Lfj/s;" &&
+                            reference.name == "resolve" &&
+                            reference.parameterTypes == listOf("Ljava/lang/String;")
+                    } == true
+            }
+    },
 )

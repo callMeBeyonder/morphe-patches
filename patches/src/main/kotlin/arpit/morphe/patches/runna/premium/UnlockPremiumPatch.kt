@@ -1,14 +1,34 @@
 package arpit.morphe.patches.runna.premium
 
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
 import app.morphe.patcher.patch.bytecodePatch
+import app.morphe.util.getReference
 import arpit.morphe.patches.runna.shared.Constants.COMPATIBILITY_RUNNA
+import com.android.tools.smali.dexlib2.AccessFlags
+import com.android.tools.smali.dexlib2.Opcode
+import com.android.tools.smali.dexlib2.iface.Method
+import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
+import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 
 /** Entitlement identifier configured in Runna's RevenueCat dashboard. */
 private const val PREMIUM_ENTITLEMENT = "premium"
 
 /** Store SKU reported as the source of the active entitlement. */
 private const val PREMIUM_PRODUCT = "runna_annual_2w"
+
+/**
+ * Converts a dex register index into the `v`/`p` name used by smali source.
+ *
+ * Patcher instruction objects expose registers in the method's full frame, while
+ * textual smali distinguishes local (`v`) registers from parameter (`p`) registers.
+ */
+private fun smaliRegisterName(method: Method, index: Int): String {
+    val parameterCount = method.parameterTypes.size +
+        if (AccessFlags.STATIC.isSet(method.accessFlags)) 0 else 1
+    val firstParameter = method.implementation!!.registerCount - parameterCount
+    return if (index >= firstParameter) "p${index - firstParameter}" else "v$index"
+}
 
 /**
  * Unlocks Runna Premium.
@@ -23,8 +43,10 @@ private const val PREMIUM_PRODUCT = "runna_annual_2w"
  *
  * Everything happens on-device: RevenueCat caches entitlement data locally and the
  * bridge is fed from that cache, so no request to the RevenueCat API is involved.
- * Runna's own backend still reports `userProfile.subscriptionStatus`, and
- * plan content the backend only ships to paying accounts stays server-gated.
+ * The backend still reports a non-paying `userProfile.subscriptionStatus`, but it
+ * ships the full plan payload and only marks the weeks with a client-side
+ * `lockedV3` flag. A second hook rewrites that flag in the GraphQL response, so the
+ * plan weeks open without a purchase.
  *
  * Deliberately not patched: `CustomerInfo.getActiveSubscriptions()`. Runna's
  * subscription management screen reads it; spoofing it would misreport the
@@ -34,9 +56,9 @@ private const val PREMIUM_PRODUCT = "runna_annual_2w"
 @Suppress("unused")
 val unlockPremiumPatch = bytecodePatch(
     name = "Unlock Premium",
-    description = "Unlocks the premium surfaces driven by RevenueCat by reporting an " +
-        "active `premium` entitlement to the app's JavaScript layer. Server-delivered " +
-        "plan content still requires a real subscription.",
+    description = "Reports an active `premium` entitlement to Runna's JavaScript layer " +
+        "and clears the backend's client-side plan lock flags, unlocking premium screens " +
+        "and all plan weeks without a Play purchase.",
     default = true,
 ) {
     compatibleWith(COMPATIBILITY_RUNNA)
@@ -154,6 +176,64 @@ val unlockPremiumPatch = bytecodePatch(
                 invoke-interface {p0, v0, v1}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
                 return-object p0
+            """,
+        )
+
+        /*
+         * Plan content gate.
+         *
+         * Even with an active entitlement the backend still tags plan weeks as
+         * `lockedV3: { isLocked: true, lockedType: "FREE_TRIAL_LOCKED" }` because the
+         * account has no real Play purchase. The workout data itself is delivered —
+         * it is already in the Apollo cache — so the lock is only a rendering flag
+         * that the bundle reads from the GraphQL payload.
+         *
+         * Expo SDK 54 installs `expo/fetch` as the global `fetch` and Apollo's
+         * `HttpLink` passes no custom fetcher, so responses never reach React
+         * Native's `NetworkingModule`. `response.text()` is served by Expo's
+         * `ExpoFetchModule` text callback, which decodes the collected body bytes as
+         * UTF-8 and resolves the JS promise with the resulting string. Rewriting that
+         * string flips both lock fields before Apollo parses the JSON.
+         */
+        val textCallback = ExpoFetchTextResponseFingerprint.method
+        val decodeIndex = textCallback.implementation!!.instructions.indexOfFirst { instruction ->
+            instruction.opcode == Opcode.INVOKE_DIRECT &&
+                instruction.getReference<MethodReference>()?.let { reference ->
+                    reference.definingClass == "Ljava/lang/String;" &&
+                        reference.name == "<init>" &&
+                        reference.parameterTypes == listOf("[B", "Ljava/nio/charset/Charset;")
+                } == true
+        }
+        check(decodeIndex >= 0) {
+            "Could not find the Expo fetch UTF-8 body decode."
+        }
+
+        // `new String(bytes, charset)` leaves the decoded body in its destination
+        // register; the byte-array and charset registers are dead afterwards and can
+        // be reused as scratch space for the two replacements.
+        val decode = textCallback.getInstruction<FiveRegisterInstruction>(decodeIndex)
+        val bodyRegister = decode.getRegisterC()
+        val bytesRegister = decode.getRegisterD()
+        val charsetRegister = decode.getRegisterE()
+        check(setOf(bodyRegister, bytesRegister, charsetRegister).size == 3) {
+            "Expo fetch text decode uses overlapping registers."
+        }
+
+        val body = smaliRegisterName(textCallback, bodyRegister)
+        val scratchA = smaliRegisterName(textCallback, bytesRegister)
+        val scratchB = smaliRegisterName(textCallback, charsetRegister)
+
+        textCallback.addInstructions(
+            decodeIndex + 1,
+            """
+                const-string $scratchA, "\"isLocked\":true"
+                const-string $scratchB, "\"isLocked\":false"
+                invoke-virtual {$body, $scratchA, $scratchB}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+                move-result-object $body
+                const-string $scratchA, "\"lockedType\":\"FREE_TRIAL_LOCKED\""
+                const-string $scratchB, "\"lockedType\":\"NOT_LOCKED\""
+                invoke-virtual {$body, $scratchA, $scratchB}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+                move-result-object $body
             """,
         )
     }
