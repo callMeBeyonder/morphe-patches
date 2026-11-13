@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "patches": [
     {
       "name": "Bypass Root Detection",
@@ -216,6 +216,32 @@
           "targets": [
             {
               "version": "267",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Unlock Premium",
+      "description": "Unlocks the Zen Unlimited Pass: every plan week, the Zen Powered Music Mixes, the member Fitness Plans page and the Settings Unsubscribe entry, and hides the drawer's buy-product item. Billing is untouched.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.c10kforpink",
+          "name": "Couch to 10K",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": "#000000",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "117.19",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,

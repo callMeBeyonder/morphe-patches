@@ -1,3 +1,9 @@
+## [1.14.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.13.0...v1.14.0) (2026-11-13)
+
+### ✨ New Features
+
+* **c10k:** add premium unlock patch for Couch to 10K 117.19 ([e42a671](https://github.com/callMeBeyonder/morphe-patches/commit/e42a671a48385038b1e4d0f2fe8b6cfa1d8d82b7))
+
 ## [1.13.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.12.0...v1.13.0) (2026-11-13)
 
 ### 🐛 Bug Fixes
