@@ -14,7 +14,7 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.15.0](https://github.com/callMeBeyonder/morphe-patches/releases/tag/v1.15.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;19 patches total
+> **[v1.16.0](https://github.com/callMeBeyonder/morphe-patches/releases/tag/v1.16.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;20 patches total
 <details open>
 <summary>📦 HealthifyMe&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
@@ -107,6 +107,21 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | [Unlock Premium](#unlock-premium) | Unlocks the Zen Unlimited Pass features: removes ads and enables workout stats, workouts, music, height/weight and achievement stats. |  |
+
+</details>
+
+<details open>
+<summary>📦 Marathon 26.2&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 2.58 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Unlock Premium](#unlock-premium) | Unlocks the Zen Unlimited Pass: every plan week, the Zen Powered Music Mixes, the member Fitness Plans page and the Settings Unsubscribe entry, and hides the drawer's buy-product item. Billing is untouched. |  |
 
 </details>
 

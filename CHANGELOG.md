@@ -1,3 +1,9 @@
+## [1.16.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.15.0...v1.16.0) (2026-11-13)
+
+### ✨ New Features
+
+* **c262:** add premium unlock patch for Marathon 26.2 2.58 ([d40cd2b](https://github.com/callMeBeyonder/morphe-patches/commit/d40cd2be9ba4c5d0b8ebfbdc9c5ee291c31d8781))
+
 ## [1.15.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.14.0...v1.15.0) (2026-11-13)
 
 ### ✨ New Features
