@@ -14,7 +14,7 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.18.0](https://github.com/callMeBeyonder/morphe-patches/releases/tag/v1.18.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;27 patches total
+> **[v1.19.0](https://github.com/callMeBeyonder/morphe-patches/releases/tag/v1.19.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;29 patches total
 <details open>
 <summary>📦 Alpha Progression&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
@@ -82,6 +82,22 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 | [Prefer highest resolution](#prefer-highest-resolution) | Starts playback at the best available resolution instead of the built-in 480p default. An explicit choice in the settings panel still takes precedence. |  |
 | [Serve requested resolution](#serve-requested-resolution) | Uses the signed DASH streams of the mobile play-info endpoint, so 480p/720p/1080p/4K actually select a real video track instead of reloading the same low-res MP4. Falls back to the TV streams when the mobile ladder is unavailable or lower. |  |
 | [Unlock VIP](#unlock-vip) | Reports the account as VIP, clears the per-title VIP locks and removes the visitor region block. |  |
+
+</details>
+
+<details open>
+<summary>📦 JuggernautAI&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 3.1.0 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Disable Expo OTA updates](#disable-expo-ota-updates) | Stops the app from downloading a production JavaScript bundle over the embedded one. Required by bundle patches so a later Expo update cannot replace the patched JavaScript. |  |
+| [Unlock Premium](#unlock-premium) | Unlocks all premium programs by initialising the app's own `SUBSCRIPTION_ENABLED` config flag to false at module init. That is the flag the paywall, the Subscription screen guard, the IAPHUB sync and the walkthrough check all read, so the app runs in its "subscriptions not live" mode: no paywall, premium programs selectable. Expo OTA updates are disabled so a downloaded JS bundle cannot overwrite the patched one. Store and server-side data are not affected. |  |
 
 </details>
 

@@ -1,3 +1,9 @@
+## [1.19.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.18.0...v1.19.0) (2026-11-16)
+
+### ✨ New Features
+
+* **juggernautai:** add Unlock Premium patch for 3.1.0 ([ae8f720](https://github.com/callMeBeyonder/morphe-patches/commit/ae8f720ab585e4354e586cce452441d0b5b30dae))
+
 ## [1.18.0](https://github.com/callMeBeyonder/morphe-patches/compare/v1.17.0...v1.18.0) (2026-11-15)
 
 ### 🐛 Bug Fixes
