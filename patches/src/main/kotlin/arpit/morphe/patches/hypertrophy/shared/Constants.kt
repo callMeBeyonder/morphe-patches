@@ -17,6 +17,10 @@ object Constants {
             AppTarget(
                 // Version as reported by the XAPK manifest.json (versionCode 72).
                 version = "1.9.0"
+            ),
+            AppTarget(
+                // Version as reported by the XAPK manifest.json (versionCode 73).
+                version = "1.11.0"
             )
         )
     )
