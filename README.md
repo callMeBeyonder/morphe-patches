@@ -14,7 +14,7 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.20.1](https://github.com/callMeBeyonder/morphe-patches/releases/tag/v1.20.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;32 patches total
+> **[v1.21.0](https://github.com/callMeBeyonder/morphe-patches/releases/tag/v1.21.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;33 patches total
 <details open>
 <summary>📦 Alpha Progression&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
@@ -130,6 +130,21 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 |----------|----------------|-----------|
 | [Stub App Check tokens](#stub-app-check-tokens) | Makes Firebase App Check's Play Integrity token fetch succeed with a throwaway token, so the app no longer reports "Device integrity can't be verified". The server still rejects the token, so AI food search keeps failing there. Client-side check only. |  |
 | [Unlock Premium (Root)](#unlock-premium-root) | Unlocks all premium features. Requires root: the patched build must be mounted over the genuine Play-signed install — a re-signed sideload will not work. |  |
+
+</details>
+
+<details open>
+<summary>📦 Home workouts BeStronger&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 7.6.9 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Unlock BeStronger Pro](#unlock-bestronger-pro) | Unlocks BeStronger Pro by injecting an active `BeStronger Pro` RevenueCat entitlement into the `CustomerInfo` map the React Native bridge already builds, and by no-opping the legacy purchase sync that can fail on a re-signed build. RevenueCat's native paywall UI and the account's real server-side entitlement are left untouched. |  |
 
 </details>
 
